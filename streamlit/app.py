@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import datetime
-import gdown
+
 
 
 
@@ -14,31 +14,17 @@ st.set_page_config(page_title="Gaming Dataset Analysis", layout="wide")
 @st.cache_data
 
 def load_data():
-    # Google Drive file ID
-    file_id = "1oN4uVE6VmNEiOJlA-SMWD4AFToEc2p9l"
-    url = f"https://drive.google.com/uc?id={file_id}"
-    output = "game_data_all.csv"
-
-    # Download the file
-    gdown.download(url, output, quiet=False)
-
-    # Load the data into a DataFrame
-    df = pd.read_csv(output)
-
-    # Convert date columns to datetime
+    df = pd.read_csv('C:\\Users\\Fawwaz Yasirah\\Downloads\\archive (8)\\game_data_all.csv')
+    # Konversi kolom tanggal
     df['release'] = pd.to_datetime(df['release'], errors='coerce')
     df['all_time_peak_date'] = pd.to_datetime(df['all_time_peak_date'], errors='coerce')
-
-    # Calculate review ratio
+    # Hitung review ratio
     df['review_ratio'] = pd.to_numeric(df['positive_reviews'], errors='coerce') / pd.to_numeric(df['total_reviews'], errors='coerce')
-
-    # Drop rows with NaN values in essential columns
+    # Hapus baris dengan nilai NaN
     df = df.dropna(subset=['release', 'positive_reviews', 'total_reviews'])
-
-    # Ensure specific columns are strings
+    # Pastikan kolom string
     df['primary_genre'] = df['primary_genre'].astype(str)
     df['publisher'] = df['publisher'].astype(str)
-
     return df
 
 try:
