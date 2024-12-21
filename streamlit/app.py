@@ -14,7 +14,7 @@ st.set_page_config(page_title="Gaming Dataset Analysis", layout="wide")
 @st.cache_data
 
 def load_data():
-    df = pd.read_csv('C:\\Users\\Fawwaz Yasirah\\Downloads\\archive (8)\\game_data_all.csv')
+    df = pd.read_csv('DatasetSteam/game_data_all.csv')
     # Konversi kolom tanggal
     df['release'] = pd.to_datetime(df['release'], errors='coerce')
     df['all_time_peak_date'] = pd.to_datetime(df['all_time_peak_date'], errors='coerce')
